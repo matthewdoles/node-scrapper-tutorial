@@ -22,9 +22,20 @@ const URL = 'https://www.imdb.com/title/tt0102926/';
   });
   let $ = cheerio.load(response);
 
-  let title = $('div[class="title_wrapper"] > h1').text();
-  let rating = $('span[itemprop="ratingValue"]').text();
+  let title = $('div[class="title_wrapper"] > h1').text().trim();
+  let rating = $('span[itemprop="ratingValue"]').text().trim();
+  let ratingCount = $('div[class="imdbRating"] > a').text().trim();
+  let poster = $('div[class="poster"] > a > img').attr('src');
+  let releaseDate = $('a[title="See more release dates"]').text().trim();
+  let genres = [];
+  $('div[class="title_wrapper"] a[href^="/search/"]').each((i, el) => {
+    genres.push($(el).text());
+  });
 
   console.log(title);
   console.log(rating);
+  console.log(ratingCount);
+  console.log(poster);
+  console.log(releaseDate);
+  console.log(genres);
 })();
