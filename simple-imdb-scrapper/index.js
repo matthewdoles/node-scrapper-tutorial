@@ -57,11 +57,23 @@ const HEADERS = {
       `./simple-imdb-scrapper/images/${movie.id}.jpg`
     );
 
-    let stream = request({
-      uri: poster,
-      headers: { ...HEADERS },
-      gzip: true,
-    }).pipe(file);
+    await new Promise((resolve, reject) => {
+      let stream = request({
+        uri: poster,
+        headers: { ...HEADERS },
+        gzip: true,
+      })
+        .pipe(file)
+        .on('finish', () => {
+          console.log(`Finsished downloading ${movie.id}`);
+          resolve();
+        })
+        .on('eroor', (error) => {
+          reject(error);
+        });
+    }).catch((error) => {
+      console.log(`Error on downloading ${movie.id} poster`);
+    });
   }
 
   fs.writeFileSync(
