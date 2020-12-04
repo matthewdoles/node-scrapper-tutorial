@@ -1,5 +1,6 @@
 const request = require('request-promise');
 const cheerio = require('cheerio');
+const Json2csvParser = require('json2csv').Parser;
 const fs = require('fs');
 
 const URLS = [
@@ -53,5 +54,11 @@ const URLS = [
     JSON.stringify(movieData),
     'utf-8'
   );
-  console.log(movieData);
+
+  const fields = ['title', 'rating'];
+  const json2csvParser = new Json2csvParser({ fields });
+  const csv = json2csvParser.parse(movieData);
+  fs.writeFileSync('./simple-imdb-scrapper/data.csv', csv, 'utf-8');
+
+  console.log(csv);
 })();
