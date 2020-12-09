@@ -7,5 +7,5 @@ const puppeteer = require('puppeteer');
   await page.authenticate({ username: 'admin', password: '123456' });
   await page.goto('https://httpbin.org/basic-auth/admin/123456');
 
-  //await browser.close();
+  await browser.close();
 })();
