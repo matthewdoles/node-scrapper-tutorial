@@ -7,5 +7,6 @@ const twitter = require('./twitter');
 
   await twitter.initialize();
   await twitter.login(USERNAME, PASSWORD);
+  await twitter.postTweet('Testing');
   await twitter.end();
 })();

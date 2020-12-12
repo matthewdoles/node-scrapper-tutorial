@@ -20,6 +20,18 @@ const twitter = {
     await page.keyboard.press('Enter');
     await page.waitForNavigation();
   },
+  postTweet: async (message) => {
+    const currentURL = await page.url();
+    const inputSelector = 'div[class="notranslate public-DraftEditor-content"]';
+    if (currentURL !== BASE_URL) {
+      await page.goto(BASE_URL);
+    }
+    await page.waitForSelector(inputSelector);
+    await page.click(inputSelector);
+    await page.waitFor(500);
+    await page.keyboard.type(message, { delay: 50 });
+    await page.click('div[data-testid="tweetButtonInline"]');
+  },
   end: async () => {
     await browser.close();
   },
