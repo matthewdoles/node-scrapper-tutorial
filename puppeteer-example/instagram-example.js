@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer');
   await page.goto('https://instagram.com');
   await page.waitForSelector('input[name="username"]');
   await page.type('input[name="username"]', 'matteddied');
-  await page.type('input[name="password"]', 'MustBeNice1');
+  await page.type('input[name="password"]', '***invalid***');
   await page.keyboard.press('Enter');
   await page.waitForNavigation();
 
