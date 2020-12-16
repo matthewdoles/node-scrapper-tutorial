@@ -25,7 +25,22 @@ const nightmare = Nightmare({
           const source = row.querySelector('span[class="sitebit comhead"] > a')
             ? row.querySelector('span[class="sitebit comhead"] > a').innerText
             : false;
-          articles.push({ title, url, source });
+
+          const secondRow = row.nextSibling;
+          const points = secondRow.querySelector('span[class="score"]')
+            ? secondRow.querySelector('span[class="score"]').innerText
+            : false;
+          const author = secondRow.querySelector('a[class="hnuser"]')
+            ? secondRow.querySelector('a[class="hnuser"]').innerText
+            : false;
+          const date = secondRow.querySelector('span[class="age"]')
+            ? secondRow.querySelector('span[class="age"]').innerText
+            : false;
+          const comments = secondRow.querySelectorAll('a')[3]
+            ? secondRow.querySelectorAll('a')[3].innerText
+            : false;
+
+          articles.push({ title, url, source, points, author, date, comments });
         }
       }
       return articles;
